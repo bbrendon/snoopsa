@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load markdown_deux_tags %}
+
+{% block content %}
+<div class="ticket-entry">
+    <h2>Ticket #{{ object.pk }} : {{ object.summary }}</h2>
+    <p>created: {{ object.created }}, modified: {{ object.modified }}</p>
+</div>
+
+
+ <hr>
+<h4>Responses</h4>
+{% for r in ticket.ticketresponse_set.all %}
+
+<p>author: {{ r.author}}, minutes: {{ r.minutes }}, created: {{ r.created|date:"Y-m-d" }}, modified: {{ r.modified|date:"Y-m-d" }}</p>
+<p>{{ r.text | markdown }}</p>
+<!--<p><pre>{{ r.text }}</pre></p>-->
+<p>
+  <a href="{% url 'ticket-response-update' r.pk %}">Edit</a> |
+  <a href="{% url 'ticket-response-delete' r.pk %}">Delete</a>
+</p>{% endfor %}
+<hr>
+
+<h4>Add a response</h4>
+<form action="" method="post">{% csrf_token %}
+    {{ form|crispy }}
+<button class="btn btn-success ml-2" type="submit">Save</button>
+</form>
+
+
+<p>
+  <a href="{% url 'ticket-update' ticket.pk %}">Edit</a> |
+  <a href="{% url 'ticket_delete' ticket.pk %}">Delete</a>
+</p>
+<p>Back to <a href="{% url 'ticket-list' %}">All Tickets</a>.</p>
+{% endblock content %}

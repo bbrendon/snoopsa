@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}TimeList{% endblock title %}
+
+{% block content %}
+<!--<a  href="{% url 'contact_new' %}">+ New</a>-->
+{{ time_list }}
+{% for i in time_list %}
+
+  <div class="card">
+    <div class="card-header">
+
+      <span class="font-weight-bold">
+        {{ i.ticket }} | {{ i.text }} | {{ i.minutes }}</span>
+    </div>
+
+
+
+  </div>
+  <br />
+{% endfor %}
+<!-- ######################## -->
+
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      {% for ticket in ticket_list %}
+        <th>{{ ticket }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for day in days %}
+      <tr>
+        <td>{{ day }}</td>
+        {% for ticket in ticket_list %}
+          <td>
+            {% if time_dict|get:day|get:ticket %}
+              {{ time_dict|get:day|get:ticket }} minutes
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+##########################################
+<table class="table">
+  <thead>
+    <tr>
+      <th>Company    </th>
+
+        <th>Ticket # + Sum</th>
+      <th>Sat</th>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+
+   </tr>
+  </thead>
+  <tbody>
+
+      <tr>
+          <td>stanford</td>
+
+          <td>asdf          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+          <td>3.3          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+          </tr>
+
+      <tr>
+          <td>stanford</td>
+
+          <td>asdf          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+          <td>3.3          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+      </tr>
+
+      <tr>
+          <td>stanford</td>
+
+          <td>asdf          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+          <td>3.3          </td>
+          <td>4          </td>
+          <td>3.3          </td>
+      </tr>
+  </tbody>
+</table>
+
+{% endblock content %}

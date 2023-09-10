@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Tickets{% endblock title %}
+
+{% block content %}
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th> <!-- added this for checkboxes -->
+      <th scope="col">#</th>
+      <th scope="col">Customer / Site / User</th>
+      <th scope="col">Summary</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in tickets %}
+      <tr>
+        <td><input type="checkbox" class="form-check-input"></td> <!-- added this for checkboxes -->
+        <th scope="row">
+          <a href="{% url 'ticket-detail' i.pk %}">{{ i.pk }}</a>
+        </th>
+        <td>{{ i.contact.site.company.short_name }} / {{ i.contact.site.name }} / {{ i.contact.first_name }} {{ i.contact.last_name }}</td>
+        <td>{{ i.summary }}</td>
+        <td>
+          <a href="{% url 'ticket-update' i.pk %}">Edit</a> |
+          <a href="{% url 'ticket_delete' i.pk %}">Delete</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+{% for i in tickets %}
+  <div class="card">
+    <div class="card-header">
+      <span class="font-weight-bold">
+        <a href="{% url 'ticket-detail' i.pk %}">{{ i.pk }}  | {{ i.contact }} | {{ i.summary }} </a> |
+      </span>
+
+      <a href="{% url 'ticket-update' i.pk %}">Edit</a> |
+      <a href="{% url 'ticket_delete' i.pk %}">Delete</a>
+    </div>
+
+
+
+  </div>
+  <br />
+{% endfor %}
+
+
+{% endblock content %}

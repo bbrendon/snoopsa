@@ -1,0 +1,21 @@
+
+{% comment %} {% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>New Ticket</h1>
+<form action="" method="post">{% csrf_token %}
+  {{ form|crispy }}
+<button class="btn btn-success ml-2" type="submit">Save</button> </form>
+{% endblock content %} {% endcomment %}
+
+<!-- mymodel.html -->
+<!doctype html>
+<html>
+    <head>
+        <!-- Use "static" template tag and configure STATIC_URL as usual. -->
+        {% comment %} <link rel="stylesheet" href="{% static 'css/app.css' %}" /> {% endcomment %}
+    </head>
+    <body>
+        Hello PDF-world!
+    </body>
+</html>

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}TimeList{% endblock title %}
+
+{% block content %}
+<!--<a  href="{% url 'contact_new' %}">+ New</a>-->
+
+<hr>
+<div style="display: flex; justify-content: space-between;">
+  <div style="text-align: left;">
+      <a href="{% url 'time-list-week' '2023' week_num|add:"-1" %}">Week <</a>
+  </div>
+  <div style="text-align: center;">
+    Week {{week_num}} - {{start_date}} to {{end_date}}
+  </div>
+
+  <div style="text-align: right;">
+    <a href="{% url 'time-list-week' '2023' week_num|add:"1" %}">Week ></a>
+  </div>
+</div>
+<hr>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Ticket # - Summary</th>
+      <th>Sat</th>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+    </tr>
+  </thead>
+    <tbody>
+
+      {% for row in time_table %}
+      <tr>
+          <td>{{row.company}}</td>
+
+          <td><a href="{% url 'ticket-detail' row.ticket_num %}">#{{row.ticket_num}} - {{row.summary}}</a></td>
+          <td>{% if row.Sat %}{{row.hours}}{% endif %}</td>
+          <td>{% if row.Sun %}{{row.hours}}{% endif %}</td>
+          <td>{% if row.Mon %}{{row.hours}}{% endif %}</td>
+          <td>{% if row.Tue %}{{row.hours}}{% endif %}</td>
+          <td>{% if row.Wed %}{{row.hours}}{% endif %}</td>
+          <td>{% if row.Thu %}{{row.hours}}{% endif %}</td>
+          <td>{% if row.Fri %}{{row.hours}}{% endif %}</td>
+      </tr>
+      {% endfor %}
+
+
+  </tbody>
+</table>
+
+<hr />
+<hr />
+
+{% for i in time_list %}
+
+  <div class="card">
+    <div class="card-header">
+
+      <span class="font-weight-bold">
+        {{ i.ticket_response.ticket.summary }} | {{ i.ticket_response.text }} | {{ i.hours }} | {{i.start |date:"Y-m-d" }}
+        <br> {{ i }}
+      </span>
+    </div>
+
+
+
+  </div>
+  <br />
+{% endfor %}
+
+
+{% endblock content %}
